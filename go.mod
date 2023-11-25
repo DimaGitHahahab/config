@@ -1,4 +1,4 @@
-module config
+module github.com/DimaGitHahahab/config
 
 go 1.21
 
