@@ -2,25 +2,24 @@ package config
 
 import (
 	"gopkg.in/yaml.v3"
-	"log"
 	"os"
 )
 
 type Config struct {
-	Port    int64  `yaml:"port"`
+	Port    int    `yaml:"port"`
 	Host    string `yaml:"host"`
-	Timeout int64  `yaml:"timeout"`
+	Timeout int    `yaml:"timeout"`
 }
 
-func GetConfig(yamlName string) *Config {
+func GetConfig(yamlName string) (*Config, error) {
 	data, err := os.ReadFile(yamlName)
 	if err != nil {
-		log.Printf("error while trying to read %v: %v", yamlName, err)
+		return nil, err
 	}
 	c := &Config{}
 	err = yaml.Unmarshal(data, c)
 	if err != nil {
-		log.Printf("error while unmarshalling %v: %v", yamlName, err)
+		return nil, err
 	}
-	return c
+	return c, nil
 }
